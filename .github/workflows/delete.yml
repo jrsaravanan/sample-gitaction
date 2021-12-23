@@ -30,8 +30,10 @@ jobs:
         run: echo Hello, Delete Test!
 
       - name: Early exit
-      - if:  ${{ github.event.inputs.choice  !== "bar" }}
+        if:  ${{ github.event.inputs.choice  !== "bar" }}
         run: exit 1
+      
+
 
 
       - name: greet
