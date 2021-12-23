@@ -28,7 +28,12 @@ jobs:
       steps:
       - name: Run a one-line script
         run: echo Hello, Delete Test!
-      
+
+      - name: Early exit
+      - if:  ${{ github.event.inputs.choice  !== "bar" }}
+        run: exit 1
+
+
       - name: greet
         run: | 
           echo "environment is ${{ github.event.inputs.environment }}"
