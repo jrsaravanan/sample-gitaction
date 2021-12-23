@@ -5,14 +5,33 @@ name: Delete Resource
 # Controls when the workflow will run
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        type: environment
+        description: Select the environment
+      boolean:
+        type: boolean
+        description: True or False
+      choice:
+        type: choice
+        description: Make a choice
+        options:
+        - foo
+        - bar
+        - baz  
     branches:
       - main
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-
   test:
       runs-on: ubuntu-latest
       steps:
       - name: Run a one-line script
         run: echo Hello, Delete Test!
+      
+      - name: greet
+        run: | 
+          echo "environment is ${{ github.event.inputs.environment }}"
+          echo "boolean is ${{ github.event.inputs.boolean }}"
+          echo "choice is ${{ github.event.inputs.choice }}"        
