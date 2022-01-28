@@ -46,6 +46,17 @@ jobs:
           event-type: sample_push
           client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}", "repository": "{{ $GITHUB_REPOSITORY }}"}'
 
+      - name: Create tag
+        uses: actions/github-script@v5
+        with:
+          script: |
+            github.rest.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: 'refs/tags/dev-$(date +'%Y-%m-%d')',
+              sha: context.sha
+            })
+
   test:
       runs-on: ubuntu-latest
       steps:
