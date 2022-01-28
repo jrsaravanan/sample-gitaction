@@ -44,7 +44,7 @@ jobs:
           token: ${{ secrets.A_TOKEN }}
           repository: jrsaravanan/sample-dp
           event-type: sample_push
-          client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}", "repository": "{{ $GITHUB_REPOSITORY }}"}'
 
   test:
       runs-on: ubuntu-latest
