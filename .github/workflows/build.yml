@@ -38,13 +38,13 @@ jobs:
       #     --data '{"event_type": "ping", "client_payload": { "repository": "'"$GITHUB_REPOSITORY"'" }}'
 
       - name: Emit repository_dispatch
-        uses: mvasigh/dispatch-action@main
+        uses: peter-evans/repository-dispatch@v1
         with:
           # You should create a personal access token and store it in your repository
           token: ${{ secrets.A_TOKEN }}
-          repo: sample-dp
-          owner: jrsaravanan
-          event_type: sample_push
+          repository: jrsaravanan/sample-dp
+          event-type: sample_push
+          client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}"}'
 
   test:
       runs-on: ubuntu-latest
