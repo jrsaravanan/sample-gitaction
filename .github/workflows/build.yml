@@ -49,6 +49,7 @@ jobs:
           token: ${{ secrets.A_TOKEN }}
           repository: jrsaravanan/sample-dp
           event-type: sample_push
+          inputs: '{ "action": "test", "service-name": "external-service", "environment": "dev"}'
           client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}", "repository": "{{ $GITHUB_REPOSITORY }}"}'
 
       - name: Get current date
