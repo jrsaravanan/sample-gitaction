@@ -49,23 +49,22 @@ jobs:
           token: ${{ secrets.A_TOKEN }}
           repository: jrsaravanan/sample-dp
           event-type: sample_push
-          inputs: '{ "action": "test", "service-name": "external-service", "environment": "dev"}'
-          client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}", "repository": "{{ $GITHUB_REPOSITORY }}"}'
+          client-payload: '{"ref": "${{ github.ref }}", "action": "${{ github.sha }}", "repository": "{{ $GITHUB_REPOSITORY }}", "service-name": "core-appliction-service", "env": "dev"}'
 
       - name: Get current date
         id: date
         run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
 
-      - name: Create tag
-        uses: actions/github-script@v5
-        with:
-          script: |
-            github.rest.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: 'refs/tags/dev-${{ steps.date.outputs.date }}',
-              sha: context.sha
-            })
+      # - name: Create tag
+      #   uses: actions/github-script@v5
+      #   with:
+      #     script: |
+      #       github.rest.git.createRef({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         ref: 'refs/tags/dev-${{ steps.date.outputs.date }}',
+      #         sha: context.sha
+      #       })
 
   test:
       runs-on: ubuntu-latest
