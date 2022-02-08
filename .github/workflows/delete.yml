@@ -25,6 +25,14 @@ on:
 jobs:
   test:
       runs-on: ubuntu-latest
+
+      strategy:
+        fail-fast: false
+        matrix:
+            url: 
+              - TX_1000
+              - TX_2000
+
       steps:
       - name: Run a one-line script
         run: echo Hello, Delete Test!
@@ -41,3 +49,12 @@ jobs:
           echo "environment is ${{ github.event.inputs.environment }}"
           echo "boolean is ${{ github.event.inputs.boolean }}"
           echo "choice is ${{ github.event.inputs.choice }}"        
+
+      - uses: liquibase/liquibase-github-action@v3
+        with:
+          operation: 'update'
+          classpath: 'example/changelogs'
+          changeLogFile: 'samplechangelog.h2.sql'
+          username: "test"
+          password: "test"
+          url: ${{ matrix.url }}
